@@ -1,19 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESHADOW AGRINEX</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DESHADOW AGRINEX</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f7f0;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    background: #174d32;
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 15px;
+}
+
+button, .upload {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 9px;
+    background: #247849;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#preview {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+    display: none;
+}
+
+#result {
+    margin-top: 20px;
+    color: #174d32;
+}
+</style>
 </head>
+
 <body>
-    <h1>Welcome to DESHADOW AGRINEX</h1>
-    <p>Your smart agricultural assistant.</p>
 
-    <h2>Crop Health Check</h2>
-    <p>Take a photo of your sukuma wiki leaf or choose one from your gallery.</p>
+<header>
+    <h1>DESHADOW AGRINEX</h1>
+    <p>Your smart agricultural assistant</p>
+</header>
 
-    <input type="file" accept="image/*" capture="environment">
+<div class="card">
+    <h2>🌱 Crop Health Check</h2>
 
-    <button>Analyse Leaf</button>
+    <p>Take a photograph of your sukuma wiki leaf or choose one from your gallery.</p>
+
+    <label class="upload">
+        📷 Take a Photo
+        <input type="file" accept="image/*" capture="environment"
+        onchange="showPhoto(event)" hidden>
+    </label>
+
+    <label class="upload">
+        🖼️ Choose from Gallery
+        <input type="file" accept="image/*"
+        onchange="showPhoto(event)" hidden>
+    </label>
+
+    <img id="preview" alt="Selected leaf">
+
+    <button onclick="analyseLeaf()">Analyse Leaf</button>
+
+    <p id="result"></p>
+</div>
+
+<script>
+let selectedPhoto = null;
+
+function showPhoto(event) {
+    selectedPhoto = event.target.files[0];
+
+    if (selectedPhoto) {
+        document.getElementById("preview").src =
+            URL.createObjectURL(selectedPhoto);
+
+        document.getElementById("preview").style.display = "block";
+
+        document.getElementById("result").textContent =
+            "Photo selected successfully!";
+    }
+}
+
+function analyseLeaf() {
+    if (!selectedPhoto) {
+        document.getElementById("result").textContent =
+            "Please take or choose a leaf photo first.";
+        return;
+    }
+
+    document.getElementById("result").textContent =
+        "Photo ready! AI disease analysis will be added in the next development stage.";
+}
+</script>
+
 </body>
 </html>
